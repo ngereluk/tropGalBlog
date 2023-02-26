@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ParagraphBlock } from "../utils/notionAPI";
+import { ParagraphBlock } from "../utils/blockTypes";
 
 interface paragraphProps {
   paragraphData: ParagraphBlock;
 }
 const Paragraph = (props: paragraphProps) => {
+  //console.log("props.paragraphData ", props.paragraphData.plain_text);
   const [styleClasses, setStyleClasses] = useState("");
   useEffect(() => {
     if (props.paragraphData.code === true) {

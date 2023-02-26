@@ -1,5 +1,5 @@
 import React from "react";
-import { EmbedBlock } from "../utils/notionAPI";
+import { EmbedBlock } from "../utils/blockTypes";
 import Tweet from "../components/tweet";
 import Codepen from "../components/codepen";
 

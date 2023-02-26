@@ -1,5 +1,3 @@
-import { getAllPostIds, getPostData } from "../../utils/blogPages";
-import { InferGetStaticPropsType } from "next";
 import Paragraph from "../../components/paragraph";
 import HeadingOne from "../../components/headingOne";
 import HeadingTwo from "../../components/headingTwo";
@@ -7,9 +5,6 @@ import HeadingThree from "../../components/headingThree";
 import BulletedListItem from "../../components/bulletedListItem";
 import NumberedListItem from "../../components/numberedListItem";
 import Table from "../../components/table";
-import Header from "../../components/siteHeader";
-import PageBodyHeader from "../../components/pageBodyHeader";
-import PageBodyFooter from "../../components/pageBodyFooter";
 import Image from "../../components/image";
 import Video from "../../components/video";
 import Bookmark from "../../components/bookmark";
@@ -38,7 +33,7 @@ import {
   ColumnBlock,
   EmbedBlock,
   Block,
-} from "../../utils/notionAPI";
+} from "../../utils/blockTypes";
 
 interface blockTypeProps {
   blockData: Block;
@@ -47,7 +42,6 @@ let itemNo = 0;
 
 const BlockType = (props: blockTypeProps, itemNo: number) => {
   itemNo = itemNo + 1;
-
   return (
     <div>
       {props.blockData.type === "paragraph" ? (

@@ -1,6 +1,17 @@
 import { Client } from "@notionhq/client";
 import { getPageBlocks, parseProperties, queryDatabase } from "./notionAPI";
 
+export interface PostMetaData {
+  id: string;
+  title: string;
+  tagArray: string[];
+  author: string;
+  lastUpdated: string;
+  readTime: number;
+  coverImage: string;
+  authorProfilePic: string;
+}
+
 export async function getAllPostIds() {
   const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
@@ -23,7 +34,7 @@ export async function getAllPostIds() {
         readTime: article.readTime,
         coverImage: article.coverImage,
         authorProfilePic: article.authorProfilePic,
-      },
+      } as PostMetaData,
     };
   });
 }

@@ -4,7 +4,6 @@ import { useDetectIsMobile } from "../hooks/useDetectIsMobile";
 
 const Header = () => {
   const isMobile = useDetectIsMobile();
-  console.log("isMobile ", isMobile);
   return (
     <div
       style={{

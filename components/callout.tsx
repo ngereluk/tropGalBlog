@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { CalloutBlock } from "../utils/notionAPI";
+import { CalloutBlock } from "../utils/blockTypes";
 
 interface calloutProps {
   calloutData: CalloutBlock;
 }
 const Callout = (props: calloutProps) => {
-  console.log("calloutData ", props.calloutData);
   const [styleClasses, setStyleClasses] = useState("");
   useEffect(() => {
     if (props.calloutData.code === true) {

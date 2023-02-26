@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ImageBlock } from "../utils/notionAPI";
+import { ImageBlock } from "../utils/blockTypes";
 
 interface imageProps {
   imageData: ImageBlock;

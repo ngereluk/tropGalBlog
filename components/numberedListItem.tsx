@@ -1,5 +1,5 @@
 import React from "react";
-import { NumberedListItemBlock } from "../utils/notionAPI";
+import { NumberedListItemBlock } from "../utils/blockTypes";
 
 interface numberedListItemProps {
   listDataItem: NumberedListItemBlock;

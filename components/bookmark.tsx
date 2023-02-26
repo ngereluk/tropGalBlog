@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BookmarkBlock } from "../utils/notionAPI";
+import { BookmarkBlock } from "../utils/blockTypes";
 import { PreviewData } from "../pages/api/scrapeURL";
 import Link from "next/link";
 
@@ -36,7 +36,6 @@ const Bookmark = (props: bookmarkProps) => {
         favicons: previewDataReturned.favicons[0],
         description: previewDataReturned.description,
       }));
-      //  console.log({ previewDatadata });
     } catch (e: any) {
       setError(e.toString());
     }

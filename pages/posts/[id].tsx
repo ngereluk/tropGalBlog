@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { getAllPostIds, getPostData } from "../../utils/blogPages";
 import { InferGetStaticPropsType } from "next";
 import Paragraph from "../../components/paragraph";
@@ -39,7 +40,15 @@ import {
   CalloutBlock,
   ColumnBlock,
   EmbedBlock,
-} from "../../utils/notionAPI";
+  Block,
+} from "../../utils/blockTypes";
+
+export interface authorJsonData {
+  name: string;
+  position: string;
+  employer: string;
+  website: string;
+}
 
 export default function Post({
   postData,
@@ -47,6 +56,17 @@ export default function Post({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   let numberedListItemNum = 0;
   const isMobile = useDetectIsMobile();
+  const [allAuthorData, setAllAuthorData] = useState<authorJsonData[]>();
+
+  async function getAuthorStaticData() {
+    const data = await fetch("/api/staticdata").then((res) => res.json());
+    const parsedData = JSON.parse(data);
+    setAllAuthorData(parsedData.authors);
+  }
+
+  useEffect(() => {
+    getAuthorStaticData();
+  }, []);
 
   return (
     <div>
@@ -69,125 +89,127 @@ export default function Post({
               flexDirection: "column",
             }}
           >
-            {postData.page.children.map((block) => {
-              if (block.type === "paragraph") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Paragraph paragraphData={block as ParagraphBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "heading_1") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <HeadingOne headingData={block as HeadingOneBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "heading_2") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <HeadingTwo headingData={block as HeadingTwoBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "heading_3") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <HeadingThree headingData={block as HeadingThreeBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "bulleted_list_item") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <BulletedListItem
-                      listDataItem={block as BulletedListItemBlock}
-                    />
-                  </div>
-                );
-              }
-              if (block.type === "numbered_list_item") {
-                numberedListItemNum = numberedListItemNum + 1;
+            {postData.page.children.map((block: Block) => {
+              if (block.type !== null) {
+                if (block.type === "paragraph") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Paragraph paragraphData={block as ParagraphBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "heading_1") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <HeadingOne headingData={block as HeadingOneBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "heading_2") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <HeadingTwo headingData={block as HeadingTwoBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "heading_3") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <HeadingThree headingData={block as HeadingThreeBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "bulleted_list_item") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <BulletedListItem
+                        listDataItem={block as BulletedListItemBlock}
+                      />
+                    </div>
+                  );
+                }
+                if (block.type === "numbered_list_item") {
+                  numberedListItemNum = numberedListItemNum + 1;
 
-                return (
-                  <div style={{ display: "flex" }}>
-                    <NumberedListItem
-                      listDataItem={block as NumberedListItemBlock}
-                      numberedListItemNum={numberedListItemNum}
-                    />
-                  </div>
-                );
-              }
-              if (block.type === "table") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Table tableData={block as TableBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "image") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Image imageData={block as ImageBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "video") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Video videoData={block as VideoBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "bookmark") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Bookmark bookmarkData={block as BookmarkBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "file") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <File fileData={block as FileBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "quote") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Quote quoteData={block as QuoteBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "divider") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Divider dividerData={block as DividerBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "callout") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <Callout calloutData={block as CalloutBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "column_list") {
-                return (
-                  <div style={{ display: "flex" }}>
-                    <ColumnSet columnData={block as ColumnBlock} />
-                  </div>
-                );
-              }
-              if (block.type === "embed") {
-                return (
-                  <div style={{ display: "flex", width: "100%" }}>
-                    <Embed embedData={block as EmbedBlock} />
-                  </div>
-                );
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <NumberedListItem
+                        listDataItem={block as NumberedListItemBlock}
+                        numberedListItemNum={numberedListItemNum}
+                      />
+                    </div>
+                  );
+                }
+                if (block.type === "table") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Table tableData={block as TableBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "image") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Image imageData={block as ImageBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "video") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Video videoData={block as VideoBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "bookmark") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Bookmark bookmarkData={block as BookmarkBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "file") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <File fileData={block as FileBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "quote") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Quote quoteData={block as QuoteBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "divider") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Divider dividerData={block as DividerBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "callout") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <Callout calloutData={block as CalloutBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "column_list") {
+                  return (
+                    <div style={{ display: "flex" }}>
+                      <ColumnSet columnData={block as ColumnBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "embed") {
+                  return (
+                    <div style={{ display: "flex", width: "100%" }}>
+                      <Embed embedData={block as EmbedBlock} />
+                    </div>
+                  );
+                }
               }
             })}
           </div>
@@ -196,7 +218,10 @@ export default function Post({
       </div>{" "}
       <div style={{ paddingBottom: "100px" }}>
         {" "}
-        <PageBodyFooter articleMetaData={articlePostMetaData} />
+        <PageBodyFooter
+          articleMetaData={articlePostMetaData}
+          allAuthorData={allAuthorData}
+        />
       </div>
       <SiteFooter />
     </div>
@@ -205,7 +230,6 @@ export default function Post({
 
 export async function getStaticPaths() {
   const paths = await getAllPostIds();
-  // console.log("paths ", paths);
   return {
     paths,
     fallback: false,
@@ -213,12 +237,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: { params: any }) {
-  const postData = await getPostData(params.id);
+  const rawPostData = await getPostData(params.id);
+  const postData = JSON.parse(JSON.stringify(rawPostData));
+  // postData.page.children.forEach((child) =>
+  //   console.log("child in front  ", child)
+  // );
   const allPostMetaData = await getAllPostIds();
   const articlePostMetaData = allPostMetaData
     .map((metaData) => metaData.params)
     .find(({ id }) => id == params.id);
-  //console.log("postData ", postData);
   return {
     props: {
       postData,

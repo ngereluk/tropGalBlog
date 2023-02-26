@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HeadingOneBlock } from "../utils/notionAPI";
+import { HeadingOneBlock } from "../utils/blockTypes";
 
 interface headingOneProps {
   headingData: HeadingOneBlock;

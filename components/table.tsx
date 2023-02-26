@@ -1,14 +1,13 @@
 import React from "react";
-import { TableBlock, TableRowBlock } from "../utils/notionAPI";
+import { TableBlock, TableRowBlock } from "../utils/blockTypes";
+import BlockType from "../pages/posts/findBlockType";
 
 interface tableProps {
   tableData: TableBlock;
 }
 const Table = (props: tableProps) => {
   const tableRows = props.tableData.children as TableRowBlock[];
-  console.log("tableData ", props.tableData);
-  //console.log("tableRows ", tableRows);
-  //  tableRows.map((row) => console.log("row num ", row.rowNum));
+  tableRows.map((row) => row.cells.map((cell) => console.log("cell ", cell)));
   return (
     <div>
       <div
@@ -44,6 +43,7 @@ const Table = (props: tableProps) => {
                     className={cell.code ? "code" : ""}
                     style={{
                       padding: "7px",
+
                       border: "0.25px solid grey",
                       fontWeight: cell.bold === true ? "bold" : "inherit",
                       fontStyle: cell.italic === true ? "italic" : "inherit",

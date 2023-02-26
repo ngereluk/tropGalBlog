@@ -1,5 +1,5 @@
 import React from "react";
-import { DividerBlock } from "../utils/notionAPI";
+import { DividerBlock } from "../utils/blockTypes";
 
 interface dividerProps {
   dividerData: DividerBlock;

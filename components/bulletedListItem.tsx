@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BulletedListItemBlock } from "../utils/notionAPI";
+import { BulletedListItemBlock } from "../utils/blockTypes";
 
 interface bulletedListProps {
   listDataItem: BulletedListItemBlock;
 }
 const BulletedListItem = (props: bulletedListProps) => {
-  // console.log("props.listDataItem ", props.listDataItem);
   const [styleClasses, setStyleClasses] = useState("");
   useEffect(() => {
     if (props.listDataItem.code === true) {

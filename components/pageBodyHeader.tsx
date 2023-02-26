@@ -50,15 +50,16 @@ const PageBodyHeader = (props: pageBodyHeaderProps) => {
             width: "100%",
           }}
         >
-          <div id="authorProfilePic" style={{ display: "flex" }}>
+          <div
+            id="authorProfilePic"
+            style={{ display: "flex", paddingRight: "2%" }}
+          >
             {
               <img
                 src={profilePic}
                 alt="new"
                 style={{
                   maxHeight: "6vh",
-                  maxWidth: "6.8vh",
-                  paddingRight: "10px",
                 }}
               />
             }

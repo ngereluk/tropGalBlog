@@ -1,12 +1,11 @@
 import React from "react";
-import { ColumnBlock } from "../utils/notionAPI";
+import { ColumnBlock } from "../utils/blockTypes";
 import Column from "../components/column";
 
 interface columnSetProps {
   columnData: ColumnBlock;
 }
 const ColumnSet = (props: columnSetProps) => {
-  // console.log("columnData ", props.columnData.children.length);
   const numberChildColumns = props.columnData.children.length;
   return (
     <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>

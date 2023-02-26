@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/button";
 import ArticleList from "../components/articleList";
 import { getAllPostIds } from "../utils/blogPages";
@@ -7,16 +7,26 @@ import MainPageRHMenu from "../components/mainPageRHMenu";
 import Header from "../components/siteHeader";
 import SiteFooter from "../components/siteFooter";
 import { useDetectIsMobile } from "../hooks/useDetectIsMobile";
+import Link from "next/link";
 
 export default function Home({
   postMetaData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const isMobile = useDetectIsMobile();
+  const [randomArticleId, setRandomArticleId] = useState("");
+
+  useEffect(() => {
+    const randId = Math.floor(Math.random() * (postMetaData.length - 1));
+    console.log("randId ", randId);
+    console.log("postMetaData ", postMetaData);
+
+    const randomArticleObj = postMetaData[randId];
+    setRandomArticleId(randomArticleObj.params.id);
+  }, []);
 
   return (
     <div>
       <Header />
-
       <div
         style={{
           backgroundImage:
@@ -82,19 +92,24 @@ export default function Home({
               display: "flex",
             }}
           >
-            <Button
-              border="none"
-              backgroundColor="#292827"
-              color="white"
-              height={isMobile ? "40px" : "45px"}
-              onClick={() => console.log("You clicked")}
-              radius="25px"
-              width={isMobile ? "55%" : "290px"}
-              children="I'm feeling lucky"
-              borderColor="#292827"
-              fontSize={isMobile ? "1.2em" : "1.7rem"}
-              fontFamily="Georgia"
-            />
+            <Link href={`/posts/${randomArticleId}`}>
+              <div
+                style={{
+                  border: "none",
+                  backgroundColor: "#292827",
+                  color: "white",
+                  height: isMobile ? "40px" : "45px",
+                  borderRadius: "25px",
+                  width: isMobile ? "55%" : "290px",
+                  borderColor: "#292827",
+                  fontSize: isMobile ? "1.2em" : "1.7rem",
+                  fontFamily: "Georgia",
+                }}
+              >
+                {" "}
+                I'm feeling lucky{" "}
+              </div>
+            </Link>
           </div>
         </div>
         {!isMobile && (
@@ -135,10 +150,8 @@ export default function Home({
     </div>
   );
 }
-//  const [posts, setPosts] = useState(0);
 export async function getStaticProps() {
   const postMetaData = await getAllPostIds();
-  //console.log("allPostData ", allPostData);
   return {
     props: {
       postMetaData,

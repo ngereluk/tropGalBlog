@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDetectIsMobile } from "../hooks/useDetectIsMobile";
 
 interface pageBodyFooterProps {
   articleMetaData: any;
+  allAuthorData: any;
 }
+
 const PageBodyFooter = (props: pageBodyFooterProps) => {
   const isMobile = useDetectIsMobile();
+  let authorPosition = "";
+  let authorEmployer = "";
+
+  if (props.allAuthorData != undefined) {
+    const authorData = props.allAuthorData.filter(
+      (author: any) => author.name === props.articleMetaData.author
+    );
+    authorPosition = authorData[0].position;
+    authorEmployer = authorData[0].employer;
+  }
 
   return (
     <div
@@ -152,7 +164,7 @@ const PageBodyFooter = (props: pageBodyFooterProps) => {
                 {props.articleMetaData.author}
               </div>
               <div style={{ display: "flex", color: "#757575" }}>
-                Engineer @ Yelp
+                {authorPosition} @ {authorEmployer}
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EmbedBlock } from "../utils/notionAPI";
+import { EmbedBlock } from "../utils/blockTypes";
 import Codepen from "react-codepen-embed";
 
 interface codepenProps {

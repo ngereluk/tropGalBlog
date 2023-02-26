@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FileBlock } from "../utils/notionAPI";
+import { FileBlock } from "../utils/blockTypes";
 import { FileSize } from "../pages/api/scrapeURL";
 import Link from "next/link";
 

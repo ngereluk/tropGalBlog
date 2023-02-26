@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { VideoBlock } from "../utils/notionAPI";
+import { VideoBlock } from "../utils/blockTypes";
 import { useDetectIsMobile } from "../hooks/useDetectIsMobile";
 
 interface imageProps {

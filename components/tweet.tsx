@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EmbedBlock } from "../utils/notionAPI";
+import { EmbedBlock } from "../utils/blockTypes";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 
 interface tweetProps {

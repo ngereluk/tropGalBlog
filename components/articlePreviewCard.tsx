@@ -50,8 +50,7 @@ const ArticlePreviewCard = (props: articlePreviewCardProps) => {
             alt="new"
             style={{
               maxHeight: "5vh",
-              maxWidth: "5vh",
-              paddingRight: "10px",
+              paddingRight: "2%",
             }}
           />
 

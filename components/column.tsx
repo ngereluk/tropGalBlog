@@ -1,5 +1,5 @@
 import React from "react";
-import { Block } from "../utils/notionAPI";
+import { Block } from "../utils/blockTypes";
 import ColumnCell from "../components/columnCell";
 interface columnProps {
   indivColumnData: Block;

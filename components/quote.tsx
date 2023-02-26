@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { QuoteBlock } from "../utils/notionAPI";
+import { QuoteBlock } from "../utils/blockTypes";
 
 interface quoteProps {
   quoteData: QuoteBlock;
