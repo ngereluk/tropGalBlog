@@ -21,6 +21,7 @@ import Callout from "../../components/callout";
 import ColumnSet from "../../components/columnSet";
 import Embed from "../../components/embed";
 import SiteFooter from "../../components/siteFooter";
+import Code from "../../components/code";
 import { useDetectIsMobile } from "../../hooks/useDetectIsMobile";
 
 import {
@@ -41,6 +42,7 @@ import {
   ColumnBlock,
   EmbedBlock,
   Block,
+  SpecialCodeBlock,
 } from "../../utils/blockTypes";
 
 export interface authorJsonData {
@@ -207,6 +209,13 @@ export default function Post({
                   return (
                     <div style={{ display: "flex", width: "100%" }}>
                       <Embed embedData={block as EmbedBlock} />
+                    </div>
+                  );
+                }
+                if (block.type === "code") {
+                  return (
+                    <div style={{ display: "flex", width: "100%" }}>
+                      <Code codeData={block as SpecialCodeBlock} />
                     </div>
                   );
                 }

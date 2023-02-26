@@ -23,6 +23,7 @@ import {
   LinkPreviewBlock,
   TableBlock,
   BookmarkBlock,
+  SpecialCodeBlock,
 } from "./blockTypes";
 import { Page } from "./notionAPI";
 
@@ -641,6 +642,27 @@ export default function setBlockTypesAndAddToPage(
       underline: blockParent.quote.rich_text[0].annotations.underline,
       code: blockParent.quote.rich_text[0].annotations.code,
     } as QuoteBlock;
+    Page.children.push(block);
+  }
+
+  if (blockParent.type == "code") {
+    const block = {
+      object: "block",
+      id: blockParent.id,
+      has_children: blockParent.has_children,
+      archived: blockParent.archived,
+      type: blockParent.type,
+      children: children,
+      content: blockParent.code.rich_text[0].plain_text,
+      language: blockParent.code.language,
+      captions: blockParent.code.caption,
+      color: blockParent.code.rich_text[0].annotations.color,
+      bold: blockParent.code.rich_text[0].annotations.bold,
+      italic: blockParent.code.rich_text[0].annotations.italic,
+      strikethrough: blockParent.code.rich_text[0].annotations.strikethrough,
+      underline: blockParent.code.rich_text[0].annotations.underline,
+      code: blockParent.code.rich_text[0].annotations.code,
+    } as SpecialCodeBlock;
     Page.children.push(block);
   }
 }

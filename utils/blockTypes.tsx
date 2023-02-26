@@ -209,3 +209,14 @@ export interface Cell {
   content: string;
   cellNum: number;
 }
+
+export interface SpecialCodeBlock extends Block {
+  content: string;
+  language: string;
+  color: string;
+  bold: boolean;
+  italic: boolean;
+  strikethrough: boolean;
+  underline: boolean;
+  code: boolean;
+}
