@@ -23,6 +23,7 @@ import Embed from "../../components/embed";
 import SiteFooter from "../../components/siteFooter";
 import Code from "../../components/code";
 import { useDetectIsMobile } from "../../hooks/useDetectIsMobile";
+import Head from "next/head";
 
 import {
   ParagraphBlock,
@@ -72,6 +73,26 @@ export default function Post({
 
   return (
     <div>
+      <Head>
+        <meta
+          property="og:url"
+          content={`${process.env.NEXT_PUBLIC_SITE_URL}/posts/${articlePostMetaData?.id}`}
+        />
+        {/* <meta property="og:type" content="website" /> */}
+        <meta property="og:title" content={articlePostMetaData?.title} />
+        <meta
+          property="og:description"
+          content="Checkout this cool article from the Tropical Galaxy Blog!"
+        />
+        <meta property="og:image" content={articlePostMetaData?.coverImage} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={articlePostMetaData?.title} />
+        <meta
+          name="twitter:description"
+          content="Checkout this article on the Tropical Galaxy Blog"
+        />
+        <meta name="twitter:image" content={articlePostMetaData?.coverImage} />
+      </Head>
       <Header />
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ display: "flex", flexGrow: "1" }}></div>
@@ -248,9 +269,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: { params: any }) {
   const rawPostData = await getPostData(params.id);
   const postData = JSON.parse(JSON.stringify(rawPostData));
-  // postData.page.children.forEach((child) =>
-  //   console.log("child in front  ", child)
-  // );
+
   const allPostMetaData = await getAllPostIds();
   const articlePostMetaData = allPostMetaData
     .map((metaData) => metaData.params)

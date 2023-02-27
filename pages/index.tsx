@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "../components/button";
+import Head from "next/head";
 import ArticleList from "../components/articleList";
 import { getAllPostIds } from "../utils/blogPages";
 import { InferGetStaticPropsType } from "next";
@@ -17,15 +17,29 @@ export default function Home({
 
   useEffect(() => {
     const randId = Math.floor(Math.random() * (postMetaData.length - 1));
-    console.log("randId ", randId);
-    console.log("postMetaData ", postMetaData);
-
     const randomArticleObj = postMetaData[randId];
     setRandomArticleId(randomArticleObj.params.id);
   }, []);
 
   return (
     <div>
+      <Head>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@nytimes" />
+        <meta name="twitter:creator" content="@SarahMaslinNir" />
+        <meta
+          name="twitter:title"
+          content="Parade of Fans for Houston’s Funeral"
+        />
+        <meta
+          name="twitter:description"
+          content="NEWARK - The guest list and parade of limousines with celebrities emerging from them seemed more suited to a red carpet event in Hollywood or New York than than a gritty stretch of Sussex Avenue near the former site of the James M. Baxter Terrace public housing project here."
+        />
+        <meta
+          name="twitter:image"
+          content="http://graphics8.nytimes.com/images/2012/02/19/us/19whitney-span/19whitney-span-articleLarge.jpg"
+        />
+      </Head>
       <Header />
       <div
         style={{
@@ -104,10 +118,13 @@ export default function Home({
                   borderColor: "#292827",
                   fontSize: isMobile ? "1.2em" : "1.7rem",
                   fontFamily: "Georgia",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 {" "}
-                I'm feeling lucky{" "}
+                <div> I'm feeling lucky </div>
               </div>
             </Link>
           </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDetectIsMobile } from "../hooks/useDetectIsMobile";
+import { FacebookShareButton, LinkedinShareButton } from "react-share";
 
 interface pageBodyHeaderProps {
   articleMetaData: any;
@@ -7,6 +8,7 @@ interface pageBodyHeaderProps {
 const PageBodyHeader = (props: pageBodyHeaderProps) => {
   const isMobile = useDetectIsMobile();
   const [profilePic, setProfilePic] = useState("/defaultProfilePic.png");
+  const [moreBUttonViz, setMoreButtonViz] = useState("none");
 
   useEffect(() => {
     if (props.articleMetaData.authorProfilePic !== null) {
@@ -14,9 +16,6 @@ const PageBodyHeader = (props: pageBodyHeaderProps) => {
     }
   }, []);
 
-  const twitter = (
-    <img src="/twitter.svg" alt="SVG as an image" style={{ height: "3vh" }} />
-  );
   return (
     <div>
       <div
@@ -98,36 +97,50 @@ const PageBodyHeader = (props: pageBodyHeaderProps) => {
               >
                 <div style={{ display: "flex", padding: "0px 5px 0px 5px" }}>
                   {" "}
-                  <img
-                    src="/twitter.svg"
-                    alt="SVG as an image"
-                    style={{ height: "3vh" }}
-                  />{" "}
+                  <a
+                    className="twitter-share-button"
+                    href={`https://twitter.com/intent/tweet?url=${process.env.NEXT_PUBLIC_SITE_URL}/posts/${props.articleMetaData.id}&text=Checkout%20this%20cool%20article%20on%20the%20tropical%20galaxy%20blog!`}
+                    target="_blank"
+                  >
+                    <img
+                      src="/twitter.svg"
+                      alt="SVG as an image"
+                      style={{ height: "3vh" }}
+                    />{" "}
+                  </a>
                 </div>
                 <div style={{ display: "flex", padding: "0px 5px 0px 5px" }}>
                   {" "}
-                  <img
-                    src="/linkedin.svg"
-                    alt="SVG as an image"
-                    style={{ height: "3vh" }}
-                  />{" "}
+                  <LinkedinShareButton
+                    url={`${process.env.NEXT_PUBLIC_SITE_URL}/posts/${props.articleMetaData.id}`}
+                  >
+                    <img
+                      src="/linkedin.svg"
+                      alt="SVG as an image"
+                      style={{ height: "3vh" }}
+                    />{" "}
+                  </LinkedinShareButton>
                 </div>
                 <div style={{ display: "flex", padding: "0px 5px 0px 5px" }}>
-                  <img
-                    src="/facebook.svg"
-                    alt="SVG as an image"
-                    style={{ height: "3vh" }}
-                  />{" "}
+                  <FacebookShareButton
+                    url={`${process.env.NEXT_PUBLIC_SITE_URL}/posts/${props.articleMetaData.id}`}
+                  >
+                    <img
+                      src="/facebook.svg"
+                      alt="SVG as an image"
+                      style={{ height: "3vh" }}
+                    />{" "}
+                  </FacebookShareButton>
                 </div>
-                <div style={{ display: "flex", padding: "0px 5px 0px 5px" }}>
-                  {" "}
-                  <img
-                    src="/bookmark-white.svg"
-                    alt="SVG as an image"
-                    style={{ height: "3vh" }}
-                  />{" "}
-                </div>
-                <div style={{ display: "flex", padding: "0px 5px 0px 5px" }}>
+
+                <div
+                  style={{ display: "flex", padding: "0px 5px 0px 5px" }}
+                  onClick={() => {
+                    moreBUttonViz === "none"
+                      ? setMoreButtonViz("block")
+                      : setMoreButtonViz("none");
+                  }}
+                >
                   {" "}
                   <img
                     src="/menu.svg"
@@ -135,8 +148,18 @@ const PageBodyHeader = (props: pageBodyHeaderProps) => {
                     style={{ height: "3vh" }}
                   />
                 </div>
-              </div>
+              </div>{" "}
             </div>
+            <div
+              style={{
+                width: "50px",
+                height: "50px",
+                backgroundColor: "pink",
+                position: "absolute",
+                right: "20%",
+                display: moreBUttonViz,
+              }}
+            ></div>
           </div>
         </div>
       </div>

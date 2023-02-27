@@ -33,7 +33,6 @@ export default function setBlockTypesAndAddToPage(
   Page: Page
 ) {
   if (blockParent.type == "paragraph") {
-    console.log("blockParent ", blockParent.paragraph.rich_text);
     const block = {
       object: "block",
       id: blockParent.id,
